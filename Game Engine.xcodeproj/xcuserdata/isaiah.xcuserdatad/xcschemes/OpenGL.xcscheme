@@ -17,7 +17,7 @@
                BlueprintIdentifier = "400DDAA41C9DA7F500DBC385"
                BuildableName = "OpenGL"
                BlueprintName = "OpenGL"
-               ReferencedContainer = "container:OpenGL.xcodeproj">
+               ReferencedContainer = "container:Game Engine.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -35,7 +35,7 @@
             BlueprintIdentifier = "400DDAA41C9DA7F500DBC385"
             BuildableName = "OpenGL"
             BlueprintName = "OpenGL"
-            ReferencedContainer = "container:OpenGL.xcodeproj">
+            ReferencedContainer = "container:Game Engine.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -58,7 +58,7 @@
             BlueprintIdentifier = "400DDAA41C9DA7F500DBC385"
             BuildableName = "OpenGL"
             BlueprintName = "OpenGL"
-            ReferencedContainer = "container:OpenGL.xcodeproj">
+            ReferencedContainer = "container:Game Engine.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -77,7 +77,7 @@
             BlueprintIdentifier = "400DDAA41C9DA7F500DBC385"
             BuildableName = "OpenGL"
             BlueprintName = "OpenGL"
-            ReferencedContainer = "container:OpenGL.xcodeproj">
+            ReferencedContainer = "container:Game Engine.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

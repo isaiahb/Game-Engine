@@ -40,7 +40,8 @@ void PhysicsWorld::addBlock(Block *block) {
 	
 	body->setFriction(0);
 	body->setRestitution(0);
-	body->setDamping(0.995, 0);
+	body->setDamping(0.995, 1);
+	body->setAngularFactor(btVector3(0, 0, 0));
 }
 
 void PhysicsWorld::update(float delta) {

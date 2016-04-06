@@ -50,8 +50,9 @@ void main()
 	for(int i = 0; i < NR_POINT_LIGHTS; i++)
 		result += CalcPointLight(pointLights[i], material, norm, fragPosition, viewDir);
 	
-	color = vec4(vec3(texture(material.texture_specular1, TexCoords)), 1);//vec4(result, 1.0f);
-	color = getColor();
+	vec4 light = rgb(0.5, 0.5, 0.5);
+	color = vec4(vec3(texture(material.texture_specular1, TexCoords)), 1);
+	//color = getColor();
 
 }
 

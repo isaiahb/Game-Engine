@@ -16,6 +16,8 @@
 #include "bullet/btBulletDynamicsCommon.h"
 #include "BlockCam.hpp"
 #include "Model.hpp"
+//#include <freetype/ft2build.h>
+//#include FT_FREETYPE_H
 
 using namespace ballah;
 using namespace graphics;
@@ -135,11 +137,12 @@ void updateCamera(float delta, BlockCam &camera, Block &block0) {
 	camera.move(moveVector, v);
 	//print("velo ", v);
 	
-	block0.getBody()->setLinearVelocity(btVector3(v.x, v.y, v.z));
-	float angle = (camera.getRotation() - 3.14159f / 2.0f);
-	vec3 axis(0, 1, 0);
+	//block0.getBody()->setLinearVelocity(btVector3(v.x, v.y, v.z));
+	block0.getBody()->applyForce(btVector3(v.x, v.y, v.z) * 50, btVector3());
+	//float angle = (camera.getRotation() - 3.14159f / 2.0f);
+	//vec3 axis(0, 1, 0);
 	
-	block0.setRotation(angle, axis);
+	//block0.setRotation(angle, axis);
 	
 	if(glm::length(moveVector)>0) block0.getBody()->activate();
 }
@@ -153,7 +156,8 @@ int main(void){
 	
 	modelShader.enable();
 	Model model("/Users/isaiah/Desktop/green dragon/dragon.blend");
-	
+//	Model model("/Users/isaiah/Desktop/space/ship.blend");
+
 	GLuint blockTexture = createBlockTexture();
 	renderer.setBlockTexture(blockTexture);
     Block block0( 0,  2, -4, 1, 1, 1);
@@ -161,6 +165,7 @@ int main(void){
     Block block3( 2, -1, -4, 1, 1, 1);
 	
 	Block plane(2, -2.5, -4, 20, 1, 20);
+	
 	modelShader.enable();
 	modelShader.setUniformMat4("model", block2.getModelMatrix());
 
@@ -170,7 +175,12 @@ int main(void){
 	physicsWorld.addBlock(&block0);
 	physicsWorld.addBlock(&block2);
 	physicsWorld.addBlock(&block3);
-	mat4 scale = glm::scale(mat4(), vec3(.123,.123,.123));
+	physicsWorld.addBlock(&plane);
+	plane.getBody()->setMassProps(0, btVector3(0,0,0));
+
+	mat4 scale = glm::scale(mat4(), vec3(.21,.21,.21));
+//	mat4 scale = glm::scale(mat4(), vec3(1.21,1.21,1.21));
+
     while(window.isRunning()) {
         if(window.isKeyPressed(GLFW_KEY_ESCAPE)) {
            window.~Window();
@@ -188,42 +198,23 @@ int main(void){
         shader.setUniform3f("camera_position", camera.getPosition());
 		shader.setUniformMat4("instanceMatrix", block0.getModelMatrix());
 		
+		glm::mat4 viewDirection = glm::mat4(glm::mat3(camera.getViewMatrix()));
         skyboxShader.enable();
-        glm::mat4 view = glm::mat4(glm::mat3(camera.getViewMatrix()));
-        skyboxShader.setUniformMat4("viewMatrix", view);
+        skyboxShader.setUniformMat4("viewMatrix", viewDirection);
 		
 		modelShader.enable();
 		modelShader.setUniformMat4("view", viewMatrix);
 		modelShader.setUniform3f("light_pos", camera.getPosition());
 		modelShader.setUniformMat4("model",block2.getModelMatrix() * scale);
 		modelShader.setUniform3f("view", camera.getPosition());
-		shader.setUniform3f("light_pos", camera.getPosition());
-		shader.setUniform3f("camera_position", camera.getPosition());
-		// Set the lighting uniforms
-		//glUniform3f(glGetUniformLocation(shader.Program, "viewPos"), camera.Position.x, camera.Position.y, camera.Position.z);
+		modelShader.setUniform3f("light_pos", camera.getPosition());
+		modelShader.setUniform3f("camera_position", camera.getPosition());
 		
-		//Point light 1
-		modelShader.setUniform3f("pointLight[0].position",	camera.getPosition());
-		modelShader.setUniform3f("pointLight[0].ambient",	vec3(0.05f, 0.05f, 0.05f));
-		modelShader.setUniform3f("pointLight[0].diffuse",	vec3(1.0f, 1.0f, 1.0f));
-		modelShader.setUniform3f("pointLight[0].specular",	vec3(1.0f, 1.0f, 1.0f));
-		modelShader.setUniform1f("pointLight[0].constant",	1.0f);
-		modelShader.setUniform1f("pointLight[0].linear",	0.009);
-		modelShader.setUniform1f("pointLight[0].quadratic",	0.0032);
-
-		// Point light 2
-		modelShader.setUniform3f("pointLight[1].position",	pointLightPositions[1]);
-		modelShader.setUniform3f("pointLight[1].ambient",	vec3(0.05f, 0.05f, 0.05f));
-		modelShader.setUniform3f("pointLight[1].diffuse",	vec3(1.0f, 1.0f, 1.0f));
-		modelShader.setUniform3f("pointLight[1].specular",	vec3(1.0f, 1.0f, 1.0f));
-		modelShader.setUniform1f("pointLight[1].constant",	1.0f);
-		modelShader.setUniform1f("pointLight[1].linear",	0.009);
-		modelShader.setUniform1f("pointLight[1].quadratic",	0.0032);
 		
+		float rotation = block0.getBody()->getWorldTransform().getRotation().z();
+		std::cout<<"rotation "<<rotation<<std::endl;
 
         window.clear();
-		
-
         renderer.renderSkybox();
 		glCullFace(GL_BACK);
 		glFrontFace(GL_CW);
@@ -238,33 +229,3 @@ int main(void){
     }
 }
 
-
-
-// Set the lighting uniforms
-//glUniform3f(glGetUniformLocation(shader.Program, "viewPos"), camera.Position.x, camera.Position.y, camera.Position.z);
-
-// Point light 1
-//		glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].position"), pointLightPositions[0].x, pointLightPositions[0].y, pointLightPositions[0].z);
-//		glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].ambient"), 0.05f, 0.05f, 0.05f);
-//		glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].diffuse"), 1.0f, 1.0f, 1.0f);
-//		glUniform3f(glGetUniformLocation(shader.Program, "pointLights[0].specular"), 1.0f, 1.0f, 1.0f);
-//		glUniform1f(glGetUniformLocation(shader.Program, "pointLights[0].constant"), 1.0f);
-//		glUniform1f(glGetUniformLocation(shader.Program, "pointLights[0].linear"), 0.009);
-//		glUniform1f(glGetUniformLocation(shader.Program, "pointLights[0].quadratic"), 0.0032);
-
-//		modelShader.setUniform3f("pointLight[0].position",	pointLightPositions[0]);
-//		modelShader.setUniform3f("pointLight[0].ambient",	vec3(0.05f, 0.05f, 0.05f));
-//		modelShader.setUniform3f("pointLight[0].diffuse",	vec3(1.0f, 1.0f, 1.0f));
-//		modelShader.setUniform3f("pointLight[0].specular",	vec3(1.0f, 1.0f, 1.0f));
-//		modelShader.setUniform1f("pointLight[0].constant",	1.0f);
-//		modelShader.setUniform1f("pointLight[0].linear",	0.009);
-//		modelShader.setUniform1f("pointLight[0].quadratic",	0.0032);
-//
-//		// Point light 2
-//		modelShader.setUniform3f("pointLight[1].position",	pointLightPositions[1]);
-//		modelShader.setUniform3f("pointLight[1].ambient",	vec3(0.05f, 0.05f, 0.05f));
-//		modelShader.setUniform3f("pointLight[1].diffuse",	vec3(1.0f, 1.0f, 1.0f));
-//		modelShader.setUniform3f("pointLight[1].specular",	vec3(1.0f, 1.0f, 1.0f));
-//		modelShader.setUniform1f("pointLight[1].constant",	1.0f);
-//		modelShader.setUniform1f("pointLight[1].linear",	0.009);
-//		modelShader.setUniform1f("pointLight[1].quadratic",	0.0032);

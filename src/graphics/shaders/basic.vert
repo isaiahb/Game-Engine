@@ -44,7 +44,7 @@ void main()
 	}
 	
 	fragment.position = instanceMatrix * position;
-	fragment.ambient = vec4(1.0f, 1.0f, 1.0f, 1.0f) * 0.2f;
+	fragment.ambient = vec4(1.0f, 1.0f, 1.0f, 1.0f) * 0.3f;
 	fragment.color = vec4(color, 1);
 	fragment.normal = norm;
 	fragment.texCoord = tc;// * mat2(scale);

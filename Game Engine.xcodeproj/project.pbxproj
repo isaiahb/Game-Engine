@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		400DDAB01C9DA87B00DBC385 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 400DDAAF1C9DA87B00DBC385 /* OpenGL.framework */; };
+		4035EA661CB301A8003EC41E /* freetype.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4035EA651CB301A8003EC41E /* freetype.framework */; };
 		405EED8B1CAE9BC300E1A181 /* buffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 405EED6C1CAE9BC300E1A181 /* buffer.cpp */; };
 		405EED8C1CAE9BC300E1A181 /* indexbuffer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 405EED6E1CAE9BC300E1A181 /* indexbuffer.cpp */; };
 		405EED8D1CAE9BC300E1A181 /* vertexarray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 405EED701CAE9BC300E1A181 /* vertexarray.cpp */; };
@@ -56,6 +57,7 @@
 /* Begin PBXFileReference section */
 		400DDAA51C9DA7F500DBC385 /* OpenGL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OpenGL; sourceTree = BUILT_PRODUCTS_DIR; };
 		400DDAAF1C9DA87B00DBC385 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		4035EA651CB301A8003EC41E /* freetype.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = freetype.framework; path = ../../../../../Library/Frameworks/freetype.framework; sourceTree = "<group>"; };
 		405EED6C1CAE9BC300E1A181 /* buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = buffer.cpp; sourceTree = "<group>"; };
 		405EED6D1CAE9BC300E1A181 /* buffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = buffer.hpp; sourceTree = "<group>"; };
 		405EED6E1CAE9BC300E1A181 /* indexbuffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = indexbuffer.cpp; sourceTree = "<group>"; };
@@ -134,7 +136,7 @@
 		40DEE7B21CAE9A50007B6F8F /* lf.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lf.png; sourceTree = "<group>"; };
 		40DEE7B31CAE9A50007B6F8F /* rt.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rt.png; sourceTree = "<group>"; };
 		40DEE7B41CAE9A50007B6F8F /* up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = up.png; sourceTree = "<group>"; };
-		40DEE7D61CAE9A50007B6F8F /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		40DEE7D61CAE9A50007B6F8F /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = src/main.cpp; sourceTree = "<group>"; };
 		40DEE7D81CAE9A50007B6F8F /* PhysicsWorld.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PhysicsWorld.cpp; sourceTree = "<group>"; };
 		40DEE7D91CAE9A50007B6F8F /* PhysicsWorld.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = PhysicsWorld.hpp; sourceTree = "<group>"; };
 		40DEE7DB1CAE9A50007B6F8F /* fileutils.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = fileutils.hpp; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				40DCCB451CA9614E004AF9CE /* libBullet3Common.a in Frameworks */,
 				40DCCB461CA9614E004AF9CE /* libBullet3Dynamics.a in Frameworks */,
 				40DCCB471CA9614E004AF9CE /* libBullet3Geometry.a in Frameworks */,
+				4035EA661CB301A8003EC41E /* freetype.framework in Frameworks */,
 				40DCCB481CA9614E004AF9CE /* libBullet3OpenCL_clew.a in Frameworks */,
 				40DCCB491CA9614E004AF9CE /* libBulletCollision.a in Frameworks */,
 				40DCCB4A1CA9614E004AF9CE /* libBulletDynamics.a in Frameworks */,
@@ -171,6 +174,7 @@
 		400DDA9C1C9DA7F500DBC385 = {
 			isa = PBXGroup;
 			children = (
+				4035EA651CB301A8003EC41E /* freetype.framework */,
 				40F08DDD1C9DABEA0043779F /* glm */,
 				40DEE7921CAC320A007B6F8F /* libassimp.3.2.0.dylib */,
 				40F08DDB1C9DAAC70043779F /* libglfw3.3.1.dylib */,
@@ -178,6 +182,7 @@
 				40DCCB4D1CA9666B004AF9CE /* bullet */,
 				40DCC9211CA6CD5E004AF9CE /* SOIL */,
 				40DEE79A1CAE9A50007B6F8F /* src */,
+				40DEE7D61CAE9A50007B6F8F /* main.cpp */,
 				400DDAA61C9DA7F500DBC385 /* Products */,
 				400DDAAF1C9DA87B00DBC385 /* OpenGL.framework */,
 			);
@@ -318,7 +323,6 @@
 		40DEE79A1CAE9A50007B6F8F /* src */ = {
 			isa = PBXGroup;
 			children = (
-				40DEE7D61CAE9A50007B6F8F /* main.cpp */,
 				405EED6A1CAE9BC300E1A181 /* graphics */,
 				40DEE79B1CAE9A50007B6F8F /* assets */,
 				40DEE7D71CAE9A50007B6F8F /* physics */,
@@ -559,9 +563,14 @@
 		400DDAAD1C9DA7F500DBC385 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include,
 					/usr/local/include/bullet,
+					/usr/local/include/free,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -574,6 +583,7 @@
 					/usr/local/Cellar/bullet/2.83.6/bullet,
 					lib,
 					/usr/local/Cellar/assimp/3.2/lib,
+					/usr/local/Cellar/freetype/2.6.3/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -582,9 +592,14 @@
 		400DDAAE1C9DA7F500DBC385 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(LOCAL_LIBRARY_DIR)/Frameworks",
+				);
 				HEADER_SEARCH_PATHS = (
 					/usr/local/include,
 					/usr/local/include/bullet,
+					/usr/local/include/free,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -597,6 +612,7 @@
 					/usr/local/Cellar/bullet/2.83.6/bullet,
 					lib,
 					/usr/local/Cellar/assimp/3.2/lib,
+					/usr/local/Cellar/freetype/2.6.3/lib,
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

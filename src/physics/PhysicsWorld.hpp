@@ -27,7 +27,7 @@ public:
 		
 		btRigidBody::btRigidBodyConstructionInfo groundRigidBodyCI(0, groundMotionState, groundShape, btVector3(0, 0, 0));
 		btRigidBody* groundRigidBody = new btRigidBody(groundRigidBodyCI);
-		dynamicsWorld->addRigidBody(groundRigidBody);
+//		dynamicsWorld->addRigidBody(groundRigidBody);
 		
 		groundRigidBody->setFriction(0.9);
 		groundRigidBody->setRestitution(0);

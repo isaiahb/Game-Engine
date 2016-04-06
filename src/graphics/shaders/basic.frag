@@ -30,8 +30,13 @@ void main() {
     vec3 norm = normalize(fragment.normal);
     vec3 lightDir = normalize(light_pos - vec3(fragment.position));
     float diff = max(dot(norm, lightDir), 0.0);
-    vec4 diffuse = diff * white;
-    
+    vec4 diffuse = diff * white * 0.5;
+	
+	//direction light
+	vec3 surfaceToLight = normalize(vec3(50, 1000, 50));
+	diff = dot(norm, surfaceToLight);
+	vec4 sun = diff * white  * 0.7f;
+	
     //specular lighting
     diff = diff > 0 ? 1 : 0;
     
@@ -42,11 +47,12 @@ void main() {
     vec4 specular = specularStrength * spec * white * diff;
     
     //calculating color
-    vec4 totalLight = (fragment.ambient + diffuse + specular);
+	vec4 totalLight = (fragment.ambient + sun + diffuse);//  + specular);
 	vec4 texturePixel = texture(ourTexture, fragment.texCoord);
 	
-	color = midnightBlue;
-    color = texturePixel * totalLight;
+	color = midnightBlue * totalLight;
+    //color = texturePixel * totalLight;
 }
+
 
 

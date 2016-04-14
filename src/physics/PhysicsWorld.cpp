@@ -13,11 +13,11 @@
 using namespace glm;
 using namespace std;
 
-btVector3 toVector3(const vec3 &vec) {
+btVector3 PhysicsWorld::toVector3(const vec3 &vec) {
 	return btVector3(vec.x, vec.y, vec.z);
 }
 
-vec3 toVec3(const btVector3 &vec) {
+vec3 PhysicsWorld::toVec3(const btVector3 &vec) {
 	return vec3(vec.getX(), vec.getY(), vec.getZ());
 }
 

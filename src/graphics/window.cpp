@@ -15,17 +15,47 @@ namespace ballah { namespace graphics {
     ////////////////////////////////////////////////////////////////////////////////////
     void window_resize_callback(GLFWwindow *window, int width, int height) {
         glViewport(0, 0, width, height);
+		Window* win = (Window*)glfwGetWindowUserPointer(window);
+		win->size = vec2(width, height);
     }
-    
+	
     void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
         Window* win = (Window*)glfwGetWindowUserPointer(window);
         win->keys[key] = action != GLFW_RELEASE;
+		win->getInput()->keys.keyDown[key]  = action != GLFW_RELEASE;
+		if (action != GLFW_RELEASE) {
+			KeyPressedFunctions funcs = win->getInput()->keys.keyPressedListeners[key];
+			for (int i = 0; i < funcs.size(); i++) {
+				funcs[i]();
+			}
+		}
+		else {
+			KeyReleasedFunctions funcs = win->getInput()->keys.keyReleasedListeners[key];
+			for (int i = 0; i < funcs.size(); i++) {
+				funcs[i]();
+			}
+		}
+	
 
     }
     
     void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
         Window* win = (Window*)glfwGetWindowUserPointer(window);
         win->mouseButtons[button] = action != GLFW_RELEASE;
+		win->getInput()->mouse.mouseButtonDown[button] =  action != GLFW_RELEASE;
+		int x, y;
+		if (action != GLFW_RELEASE) {
+			MousePressedFunctions funcs = win->getInput()->mouse.mousePressedListeners[button];
+			for (int i = 0; i < funcs.size(); i++) {
+				funcs[i](glm::vec2(x, y));
+			}
+		}
+		else {
+			MouseReleasedFunctions funcs = win->getInput()->mouse.mouseReleasedListeners[button];
+			for (int i = 0; i < funcs.size(); i++) {
+				funcs[i](glm::vec2(x, y));
+			}
+		}
     }
 
     
@@ -34,6 +64,7 @@ namespace ballah { namespace graphics {
         win->mouse = vec2(xpos, ypos);
         win->delta = win->mouse - win->last;
         win->last = win->mouse;
+		win->getInput()->mouse.position = vec2(xpos, ypos);
 
     }
     ////////////////////////////////////////////////////////////////////////////////////

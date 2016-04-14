@@ -40,6 +40,14 @@ public:
 		delete collisionConfiguration;
 		delete broadphase;
 	}
+	
+	btDiscreteDynamicsWorld* getWorld() {return dynamicsWorld;}
 	void update(float delta);
 	void addBlock(Block*);
+	
+	//Static Helper Methods
+	static btVector3 toVector3(const vec3 &vec);
+	static vec3 toVec3(const btVector3 &vec);
+
+	
 };

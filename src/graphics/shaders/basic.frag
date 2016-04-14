@@ -1,6 +1,7 @@
 #version 330 core
 
 layout (location = 0) out vec4 color;
+layout (location = 1) out vec3 gPosition;
 
 uniform vec4 colour;
 uniform vec3 light_pos;
@@ -20,6 +21,7 @@ fragment;
 vec4 rgb(float r, float g, float b) {
 	return vec4(r/255, g/255, b/255, 1);
 }
+
 void main() {
     vec4 white = rgb(236, 240, 241); //light color
 	vec4 purple = rgb(142, 68, 173);
@@ -52,6 +54,8 @@ void main() {
 	
 	color = midnightBlue * totalLight;
     //color = texturePixel * totalLight;
+	//gPosition = vec3(fragment.position);
+
 }
 
 

@@ -11,6 +11,8 @@
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
 #include "FreeCam.h"
+#include "Input.hpp"
+
 
 namespace ballah { namespace graphics {
 #define MAX_KEYS	1024
@@ -22,11 +24,13 @@ namespace ballah { namespace graphics {
         const char *title;
         int width, height;
         GLFWwindow *window;
+		Input input;
         
       public:
         vec2 mouse;
         vec2 last;
         vec2 delta;
+		vec2 size;
         bool keys[MAX_KEYS];
         bool mouseButtons[MAX_BUTTONS];
         bool isRunning();
@@ -43,6 +47,7 @@ namespace ballah { namespace graphics {
         bool isKeyPressed(unsigned int keycode) const;
         bool isMouseButtonPressed(unsigned int button) const;
         void getMousePosition(double& x, double& y) const;
+		Input* getInput() {return &input;}
         
         GLFWwindow* getWindow() {return window;}
     private:

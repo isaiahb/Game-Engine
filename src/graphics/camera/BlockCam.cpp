@@ -21,9 +21,9 @@ float deg(float radians) {
 BlockCam::BlockCam(Block *block) {
 	this->block = block;
 	rotation = 0;
-	elevation = rad(30);
-	maxElevation = rad(70);
-	minElevation = rad(0);
+	elevation = rad(0);
+	maxElevation = rad(89);//rad(70);
+	minElevation = rad(-89);
 	sensitivity = vec2(0.01, 0.01);
 }
 
@@ -48,7 +48,7 @@ vec2 BlockCam::getDelta(vec2 &mousePosition) {
 }
 
 vec3 BlockCam::getPosition() const {
-	float radius = 7;
+	float radius = 15;
 	vec3 position;
 	
 	float a;	//magic variable
@@ -69,6 +69,7 @@ void BlockCam::move(const vec3 &moveVector, vec3 &position) {
 	
 	mat4 t = translate * rotate;
 	position = vec3(vec4(position,1) * t);
+	this->t = translate * rotate;
 }
 
 

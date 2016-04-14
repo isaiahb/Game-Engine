@@ -28,6 +28,7 @@ public:
 	vec3 getPosition() const;
 	mat4 getWorldToViewMatrix() const;
 	mat4 getViewMatrix() const;
+	mat4 t;
 	float getRotation() {return rotation;}
 	
 	void setLastMousePosition(const vec2 &mousePosition) {lastMousePosition = mousePosition;}

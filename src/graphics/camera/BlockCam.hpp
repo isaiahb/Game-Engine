@@ -8,6 +8,10 @@
 class BlockCam {
 	float rotation;
 	float elevation;
+	float radius = 10;
+	float minRadius = 3;
+	float maxRadius = 20;
+
 	Block *block;
 	
 	float maxElevation;
@@ -30,6 +34,15 @@ public:
 	mat4 getViewMatrix() const;
 	mat4 t;
 	float getRotation() {return rotation;}
+	void addRadius(float value) {
+		radius += value;
+		radius = radius > maxRadius ? maxRadius : radius;
+		radius = radius < minRadius ? minRadius : radius;
+
+	}
+	void addRotation(float value) {
+		rotation += value;
+	}
 	
 	void setLastMousePosition(const vec2 &mousePosition) {lastMousePosition = mousePosition;}
 	

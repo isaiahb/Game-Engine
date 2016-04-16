@@ -3,7 +3,7 @@
 layout (location = 0) out vec4 color;
 layout (location = 1) out vec3 gPosition;
 
-uniform vec4 colour;
+uniform vec3 uColor;
 uniform vec3 light_pos;
 uniform vec3 camera_position;
 uniform sampler2D ourTexture;
@@ -52,7 +52,7 @@ void main() {
 	vec4 totalLight = (fragment.ambient + sun + diffuse);//  + specular);
 	vec4 texturePixel = texture(ourTexture, fragment.texCoord);
 	
-	color = midnightBlue * totalLight;
+	color = vec4(uColor, 1) * totalLight;//midnightBlue * totalLight;
     //color = texturePixel * totalLight;
 	//gPosition = vec3(fragment.position);
 

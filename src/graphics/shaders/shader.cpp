@@ -10,15 +10,15 @@
 
 using namespace glm;
 namespace ballah { namespace graphics {
-    GLuint LoadShaders(const char * vertex_file_path, const char * fragment_file_path);
+    GLuint LoadShaders(const char * vertex_file_path, const char * fragment_file_path, const char *geo_file_path = nullptr);
 
-    Shader::Shader(const char* vertPath, const char* fragPath)
-    //: m_VertPath(vertPath), m_FragPath(fragPath)
-    {
-//        m_ShaderID = load();
+    Shader::Shader(const char* vertPath, const char* fragPath) {
         m_ShaderID = LoadShaders(vertPath, fragPath);
     }
-    
+	Shader::Shader(const char* vertPath, const char* fragPath, const char *geoPath) {
+		m_ShaderID = LoadShaders(vertPath, fragPath, geoPath);
+	}
+	
     Shader::~Shader()
     {
         glDeleteProgram(m_ShaderID);
@@ -128,11 +128,12 @@ namespace ballah { namespace graphics {
     /////////////////////////////////////////////////////////////////////////////////
     // wombo combo  //
     //////////////////
-    GLuint LoadShaders(const char * vertex_file_path, const char * fragment_file_path){
+    GLuint LoadShaders(const char *vertex_file_path, const char *fragment_file_path, const char *geometry_file_path){
         
         // Create the shaders
         GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
         GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
+		GLuint GeometryShaderID = glCreateShader(GL_GEOMETRY_SHADER);
         
         // Read the Vertex Shader code from the file
         std::string VertexShaderCode;
@@ -156,13 +157,16 @@ namespace ballah { namespace graphics {
             while(getline(FragmentShaderStream, Line))
                 FragmentShaderCode += "\n" + Line;
             FragmentShaderStream.close();
-//            std::cout<<"***** Fragment Shader code *****"<<std::endl;
-//            std::cout<<FragmentShaderCode<<std::endl;
-        }
-        
+		} else{
+			printf("Impossible to open %s. Are you in the right directory ? Don't forget to read the FAQ !\n", fragment_file_path);
+			getchar();
+			return 0;
+		}
+	
+		
         GLint Result = GL_FALSE;
         int InfoLogLength;
-        
+		
         // Compile Vertex Shader
         printf("Compiling shader : %s\n", vertex_file_path);
         char const * VertexSourcePointer = VertexShaderCode.c_str();
@@ -178,8 +182,7 @@ namespace ballah { namespace graphics {
             printf("%s\n", &VertexShaderErrorMessage[0]);
         }
         
-        
-        
+		
         // Compile Fragment Shader
         printf("Compiling shader : %s\n", fragment_file_path);
         char const * FragmentSourcePointer = FragmentShaderCode.c_str();
@@ -194,12 +197,49 @@ namespace ballah { namespace graphics {
             glGetShaderInfoLog(FragmentShaderID, InfoLogLength, NULL, &FragmentShaderErrorMessage[0]);
             printf("%s\n", &FragmentShaderErrorMessage[0]);
         }
-        
+		
+		//if geomtry shader then load it from file, compile and check it.
+		if (geometry_file_path != nullptr) {
+			// Read the Geometry Shader code from the file
+			std::string GeometryShaderCode;
+			std::ifstream GeometryShaderStream(geometry_file_path, std::ios::in);
+			if(GeometryShaderStream.is_open()){
+				std::string Line = "";
+				while(getline(GeometryShaderStream, Line))
+					GeometryShaderCode += "\n" + Line;
+				GeometryShaderStream.close();
+			} else {
+				printf("Impossible to open %s. Are you in the right directory ? Don't forget to read the FAQ !\n", geometry_file_path);
+				getchar();
+				return 0;
+			}
+			
+			// Compile Geometry Shader
+			printf("Compiling shader : %s\n", geometry_file_path);
+			char const * GeometrySourcePointer = GeometryShaderCode.c_str();
+			glShaderSource(GeometryShaderID, 1, &GeometrySourcePointer , NULL);
+			glCompileShader(GeometryShaderID);
+			
+			// Check Geometry Shader
+			glGetShaderiv(GeometryShaderID, GL_COMPILE_STATUS, &Result);
+			glGetShaderiv(GeometryShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
+			if ( InfoLogLength > 0 ){
+				std::vector<char> GeometryShaderErrorMessage(InfoLogLength+1);
+				glGetShaderInfoLog(GeometryShaderID, InfoLogLength, NULL, &GeometryShaderErrorMessage[0]);
+				printf("%s\n", &GeometryShaderErrorMessage[0]);
+			}
+			
+		}
+		
+		
         // Link the program
         printf("Linking program\n");
         GLuint ProgramID = glCreateProgram();
         glAttachShader(ProgramID, VertexShaderID);
         glAttachShader(ProgramID, FragmentShaderID);
+		if(geometry_file_path != nullptr) {
+			glAttachShader(ProgramID, GeometryShaderID);
+		}
         glLinkProgram(ProgramID);
         
         // Check the program
@@ -210,13 +250,19 @@ namespace ballah { namespace graphics {
             glGetProgramInfoLog(ProgramID, InfoLogLength, NULL, &ProgramErrorMessage[0]);
             printf("%s\n", &ProgramErrorMessage[0]);
         }
-        
-        
+		
         glDetachShader(ProgramID, VertexShaderID);
         glDetachShader(ProgramID, FragmentShaderID);
-        
+		
         glDeleteShader(VertexShaderID);
         glDeleteShader(FragmentShaderID);
+		
+		//if geometry shader detach and delete it
+		if (geometry_file_path != nullptr) {
+			glDetachShader(ProgramID, GeometryShaderID);
+			glDeleteShader(GeometryShaderID);
+		}
+		
         
         return ProgramID;
     }

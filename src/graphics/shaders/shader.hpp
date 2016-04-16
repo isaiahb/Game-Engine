@@ -19,6 +19,8 @@ namespace ballah { namespace graphics {
         const char* m_FragPath;
     public:
         Shader(const char* vertPath, const char* fragPath);
+		Shader(const char* vertPath, const char* fragPath, const char* geoPath);
+
         ~Shader();
         
         void setUniform1f(const GLchar* name, float value);

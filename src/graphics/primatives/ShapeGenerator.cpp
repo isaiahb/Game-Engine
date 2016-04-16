@@ -48,41 +48,42 @@ ShapeData ShapeGenerator::makeCube(){
     vec2 bottomRight(1,1);
     
     ShapeData ret;
+	float d = 2.0f;
     Vertex stackVerts[] = {
-        {vec3(-1.0f, +1.0f, +1.0f), up, topRight}, // Colour
-        {vec3(+1.0f, +1.0f, +1.0f), up, topLeft}, // Colour
-        {vec3(+1.0f, +1.0f, -1.0f), up, bottomLeft}, // Colour
-        {vec3(-1.0f, +1.0f, -1.0f), up, bottomRight}, // Colour
+        {vec3(-1.0f, +1.0f, +1.0f)/d, up, topRight}, // Colour
+        {vec3(+1.0f, +1.0f, +1.0f)/d, up, topLeft}, // Colour
+        {vec3(+1.0f, +1.0f, -1.0f)/d, up, bottomLeft}, // Colour
+        {vec3(-1.0f, +1.0f, -1.0f)/d, up, bottomRight}, // Colour
         //
         
-        {vec3(-1.0f, +1.0f, -1.0f), front, topRight}, // Colour
-        {vec3(+1.0f, +1.0f, -1.0f), front, topLeft}, // Colour
-        {vec3(+1.0f, -1.0f, -1.0f), front, bottomLeft}, // Colour
-        {vec3(-1.0f, -1.0f, -1.0f), front, bottomRight}, // Colour
+        {vec3(-1.0f, +1.0f, -1.0f)/d, front, topRight}, // Colour
+        {vec3(+1.0f, +1.0f, -1.0f)/d, front, topLeft}, // Colour
+        {vec3(+1.0f, -1.0f, -1.0f)/d, front, bottomLeft}, // Colour
+        {vec3(-1.0f, -1.0f, -1.0f)/d, front, bottomRight}, // Colour
         //
         
-        {vec3(+1.0f, +1.0f, -1.0f), right, topRight}, // Colour
-        {vec3(+1.0f, +1.0f, +1.0f), right, topLeft}, // Colour
-        {vec3(+1.0f, -1.0f, +1.0f), right, bottomLeft}, // Colour
-        {vec3(+1.0f, -1.0f, -1.0f), right, bottomRight}, // Colour
+        {vec3(+1.0f, +1.0f, -1.0f)/d, right, topRight}, // Colour
+        {vec3(+1.0f, +1.0f, +1.0f)/d, right, topLeft}, // Colour
+        {vec3(+1.0f, -1.0f, +1.0f)/d, right, bottomLeft}, // Colour
+        {vec3(+1.0f, -1.0f, -1.0f)/d, right, bottomRight}, // Colour
         //
         
-        {vec3(-1.0f, +1.0f, +1.0f), left, topRight}, // Colour
-        {vec3(-1.0f, +1.0f, -1.0f), left, topLeft}, // Colour
-        {vec3(-1.0f, -1.0f, -1.0f), left, bottomLeft}, // Colour
-        {vec3(-1.0f, -1.0f, +1.0f), left, bottomRight}, // Colour
+        {vec3(-1.0f, +1.0f, +1.0f)/d, left, topRight}, // Colour
+        {vec3(-1.0f, +1.0f, -1.0f)/d, left, topLeft}, // Colour
+        {vec3(-1.0f, -1.0f, -1.0f)/d, left, bottomLeft}, // Colour
+        {vec3(-1.0f, -1.0f, +1.0f)/d, left, bottomRight}, // Colour
         //
         
-        {vec3(+1.0f, +1.0f, +1.0f), back, topRight}, // Colour
-        {vec3(-1.0f, +1.0f, +1.0f), back, topLeft}, // Colour
-        {vec3(-1.0f, -1.0f, +1.0f), back, bottomLeft}, // Colour
-        {vec3(+1.0f, -1.0f, +1.0f), back, bottomRight}, // Colour
+        {vec3(+1.0f, +1.0f, +1.0f)/d, back, topRight}, // Colour
+        {vec3(-1.0f, +1.0f, +1.0f)/d, back, topLeft}, // Colour
+        {vec3(-1.0f, -1.0f, +1.0f)/d, back, bottomLeft}, // Colour
+        {vec3(+1.0f, -1.0f, +1.0f)/d, back, bottomRight}, // Colour
         //
         
-        {vec3(+1.0f, -1.0f, -1.0f), down, topRight}, // Colour
-        {vec3(-1.0f, -1.0f, -1.0f), down, topLeft}, // Colour
-        {vec3(-1.0f, -1.0f, +1.0f), down, bottomLeft}, // Colour
-        {vec3(+1.0f, -1.0f, +1.0f), down, bottomRight} // Colour
+        {vec3(+1.0f, -1.0f, -1.0f)/d, down, topRight}, // Colour
+        {vec3(-1.0f, -1.0f, -1.0f)/d, down, topLeft}, // Colour
+        {vec3(-1.0f, -1.0f, +1.0f)/d, down, bottomLeft}, // Colour
+        {vec3(+1.0f, -1.0f, +1.0f)/d, down, bottomRight} // Colour
     };
     
     ret.numVertices = NUM_ELEMENTS(stackVerts);

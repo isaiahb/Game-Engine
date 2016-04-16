@@ -60,6 +60,13 @@
 		400AE75C1CB6BFCF0030A3BF /* Input.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = Input.hpp; sourceTree = "<group>"; };
 		400DDAA51C9DA7F500DBC385 /* OpenGL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OpenGL; sourceTree = BUILT_PRODUCTS_DIR; };
 		400DDAAF1C9DA87B00DBC385 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		403085B51CC021CF002E5681 /* basic_color.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = basic_color.frag; sourceTree = "<group>"; };
+		403085B61CC021CF002E5681 /* basic_color.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = basic_color.vert; sourceTree = "<group>"; };
+		403085B71CC021CF002E5681 /* mesh_color.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = mesh_color.frag; sourceTree = "<group>"; };
+		403085B81CC021CF002E5681 /* mesh_color.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = mesh_color.vert; sourceTree = "<group>"; };
+		403085B91CC2A45B002E5681 /* spot.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = spot.vert; sourceTree = "<group>"; };
+		403085BA1CC2A468002E5681 /* spot.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = spot.frag; sourceTree = "<group>"; };
+		403085BB1CC2A475002E5681 /* spot.geo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = spot.geo; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.glsl; };
 		4035EA651CB301A8003EC41E /* freetype.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = freetype.framework; path = ../../../../../Library/Frameworks/freetype.framework; sourceTree = "<group>"; };
 		405EED6C1CAE9BC300E1A181 /* buffer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = buffer.cpp; sourceTree = "<group>"; };
 		405EED6D1CAE9BC300E1A181 /* buffer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = buffer.hpp; sourceTree = "<group>"; };
@@ -268,6 +275,10 @@
 		405EED801CAE9BC300E1A181 /* shaders */ = {
 			isa = PBXGroup;
 			children = (
+				403085B51CC021CF002E5681 /* basic_color.frag */,
+				403085B61CC021CF002E5681 /* basic_color.vert */,
+				403085B71CC021CF002E5681 /* mesh_color.frag */,
+				403085B81CC021CF002E5681 /* mesh_color.vert */,
 				405EED811CAE9BC300E1A181 /* basic.frag */,
 				405EED821CAE9BC300E1A181 /* basic.vert */,
 				405EED831CAE9BC300E1A181 /* mesh.frag */,
@@ -278,6 +289,9 @@
 				405EED881CAE9BC300E1A181 /* skybox.vert */,
 				407DFCD21CBC69C900E668EE /* quad.vert */,
 				407DFCD31CBC69D500E668EE /* quad.frag */,
+				403085B91CC2A45B002E5681 /* spot.vert */,
+				403085BA1CC2A468002E5681 /* spot.frag */,
+				403085BB1CC2A475002E5681 /* spot.geo */,
 			);
 			path = shaders;
 			sourceTree = "<group>";

@@ -8,6 +8,8 @@
 #include <vector>
 #include <btBulletDynamicsCommon.h>
 
+typedef glm::vec3 Color;
+
 using namespace glm;
 using namespace std;
 
@@ -17,6 +19,8 @@ private:
     vec3 size;
     vec3 rotation;
     vec3 color;
+	vec3 outlineColor;
+	
     float transparency;
     
     mat4 scaleMatrix;
@@ -36,7 +40,8 @@ public:
         setPosition(x, y, z, false);
         setSize(w, h, l);
         //setRotation(0, 30, 0, false);
-        color = vec3(0.2, 0.3, 0.5);
+		color = vec3(0.2f, 0.3f, 0.5f);//vec3(0.2, 0.3, 0.5);
+		outlineColor = vec3(0, 0, 0);
         blocks.push_back(this);
     }
 	void updatePhysicsPosition() {
@@ -87,7 +92,16 @@ public:
     vec3 getPosition() {return vec3(position);}
     vec3 getRotation() {return vec3(rotation);}
     vec3 getSize() {return vec3(size);}
+	Color getColor(){return vec3(color);}
+	Color getOutlineColor(){return vec3(outlineColor);}
+	
 	btRigidBody* getBody() {return body;}
 
     mat4 getModelMatrix() {return fullMatrix;}
+	mat4 getModelMatrix(float scale) {
+		vec3 scaleSize = vec3(size);
+		vec3 one(1,1,1);
+		scaleSize += (one * scale) - one;
+		return translationMatrix * glm::scale(mat4(), scaleSize);
+	}
 };

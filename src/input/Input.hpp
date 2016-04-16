@@ -7,13 +7,17 @@
 
 typedef void (*MouseMoved)(glm::vec2 position, glm::vec2 delta);
 typedef void (*MouseClicked)(glm::vec2 position);
+typedef void (*MouseScrolled)(glm::vec2 delta);
 
 typedef void (*KeyPressed)();
 typedef void (*KeyReleased)();
 
+
+
 typedef std::vector<MouseMoved> MouseMovedFunctions;
 typedef std::vector<MouseClicked> MousePressedFunctions;
 typedef std::vector<MouseClicked> MouseReleasedFunctions;
+typedef std::vector<MouseScrolled> MouseScrolledFunctions;
 
 typedef std::vector<KeyPressed>	KeyPressedFunctions;
 typedef std::vector<KeyReleased> KeyReleasedFunctions;
@@ -22,8 +26,6 @@ typedef std::vector<KeyReleased> KeyReleasedFunctions;
 using namespace std;
 
 class Input {
-
-
 	
 	void init();
 	
@@ -36,8 +38,11 @@ public:
 		void addMouseMovedListener(MouseMoved func);
 		void addMousePressedListener(int button, MouseClicked func);
 		void addMouseReleasedListener(int button, MouseClicked func);
+		void addMouseScrolledListener(MouseClicked func);
+
 		
 		MouseMovedFunctions   mouseMovedListeners;
+		MouseScrolledFunctions   mouseScrolledListeners;
 		MousePressedFunctions mousePressedListeners[256];
 		MouseReleasedFunctions mouseReleasedListeners[256];
 	} mouse;

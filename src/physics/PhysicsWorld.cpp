@@ -22,7 +22,7 @@ vec3 PhysicsWorld::toVec3(const btVector3 &vec) {
 }
 
 void PhysicsWorld::addBlock(Block *block) {
-	vec3 halfSize = block->getSize();
+	vec3 halfSize = block->getSize()/2.0f;
 	vec3 position = block->getPosition();
 	btBoxShape *boxShape = new btBoxShape(toVector3(halfSize));
 	

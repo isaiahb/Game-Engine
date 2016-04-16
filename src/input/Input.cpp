@@ -21,14 +21,6 @@ void Input::init() {
 		keys.keyReleasedListeners[i] = KeyReleasedFunctions();
 		keys.keyDown[i] = false;
 	}
-//	int i = 5;
-	
-//	GLFWmousebuttonfun foo = [](GLFWwindow *window, int button, int action, int mods){};
-
-
-}
-void update() {
-	
 }
 
 void Input::Mouse::addMouseMovedListener(MouseMoved func) {
@@ -40,6 +32,11 @@ void Input::Mouse::addMousePressedListener(int button, MouseClicked func) {
 void Input::Mouse::addMouseReleasedListener(int button, MouseClicked func) {
 	mouseReleasedListeners[button].push_back(func);
 }
+void Input::Mouse::addMouseScrolledListener(MouseScrolled func) {
+	mouseScrolledListeners.push_back(func);
+}
+
+
 
 void Input::Keys::addKeyPressedListener(int keycode, KeyPressed func) {
 	keyPressedListeners[keycode].push_back(func);

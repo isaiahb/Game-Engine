@@ -21,6 +21,8 @@ private:
     GLuint skyboxVAO;
     Shader *shader;
     Shader *skyboxShader;
+	Shader *colorShader;
+	
     GLuint cubemapTexture;
 	GLuint blockTexture;
 
@@ -102,9 +104,7 @@ private:
         glGenBuffers(1, &indexBufferID);
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferID);
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, blockShape.indexBufferSize(), blockShape.indices, GL_STATIC_DRAW);
-        
-        //
-        
+                
         vector<const GLchar*> faces;
 
         faces.push_back("/Users/isaiah/Documents/computer science/Game Engine/src/assets/lake skybox/lake1_ft.jpg");
@@ -138,7 +138,14 @@ private:
         this->skyboxShader = skyboxShader;
         init();
     }
-    
+	
+	Renderer(Shader *shader, Shader *skyboxShader, Shader *colorShader) {
+		this->shader = shader;
+		this->skyboxShader = skyboxShader;
+		this->colorShader = colorShader;
+		init();
+	}
+	
     void render(vector<Block*> *blocks) {
         shader->enable();
   
@@ -150,12 +157,34 @@ private:
         for (int i = 0; i < blocks->size(); i++) {
             shader->setUniformMat4("instanceMatrix", blocks->at(i)->getModelMatrix());
 			shader->setUniform3f("scale", blocks->at(i)->getSize());
+			shader->setUniform3f("uColor", blocks->at(i)->getColor());
 
             glDrawElements(GL_TRIANGLES, blockShape.numIndices, GL_UNSIGNED_SHORT, 0);
         }
 		shader->disable();
     }
-    
+	
+	void render(vector<Block*> *blocks, float scale) {
+		colorShader->enable();
+//		shader->enable();
+  
+		glBindTexture(GL_TEXTURE_2D, blockTexture);
+		glActiveTexture(GL_TEXTURE0);
+		glBindVertexArray(blockVAO);
+		
+		
+		for (int i = 0; i < blocks->size(); i++) {
+			shader->setUniformMat4("instanceMatrix", blocks->at(i)->getModelMatrix(scale));
+			shader->setUniform3f("scale", blocks->at(i)->getSize() * scale);
+			shader->setUniform3f("uColor", blocks->at(i)->getOutlineColor());
+
+			
+			glDrawElements(GL_TRIANGLES, blockShape.numIndices, GL_UNSIGNED_SHORT, 0);
+		}
+		shader->disable();
+	}
+	
+	
     void renderSkybox() {
         skyboxShader->enable();
         glDepthMask(GL_FALSE);

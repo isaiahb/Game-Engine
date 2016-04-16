@@ -38,7 +38,17 @@ namespace ballah { namespace graphics {
 	
 
     }
-    
+	
+	void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+	{
+		Window* win = (Window*)glfwGetWindowUserPointer(window);
+		MouseScrolledFunctions funcs = win->getInput()->mouse.mouseScrolledListeners;
+		for (int i = 0; i < funcs.size(); i++) {
+			funcs[i](glm::vec2(xoffset, yoffset));
+		}
+		
+	}
+	
     void mouse_button_callback(GLFWwindow* window, int button, int action, int mods) {
         Window* win = (Window*)glfwGetWindowUserPointer(window);
         win->mouseButtons[button] = action != GLFW_RELEASE;
@@ -91,6 +101,7 @@ namespace ballah { namespace graphics {
     }
     Window::~Window(){
         glfwTerminate();
+		
     }
 
     void Window::setClearColor(float r = 0, float g = 0, float b = 0, float a = 1) const{
@@ -135,6 +146,7 @@ namespace ballah { namespace graphics {
         glfwSetKeyCallback(window, key_callback);
         glfwSetMouseButtonCallback(window, mouse_button_callback);
         glfwSetCursorPosCallback(window, cursor_position_callback);
+		glfwSetScrollCallback(window, scroll_callback);
         glfwSetCursorPos(window, mouse.x, mouse.y);
         
         glewExperimental = GL_TRUE;
